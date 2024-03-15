@@ -57,3 +57,45 @@ const searchForReact = searchByTitle(notesList, "React");
 console.log(sortedAscending);
 console.log(filteredCompleted);
 console.log(searchForReact);
+
+
+function sortFilterSearch(data, options = {}) {
+  const { sortOrder = "asc", searchTerm = "", isCompleted = null } = options;
+
+  if (sortOrder !== "asc" && sortOrder !== "desc") {
+    throw new Error("Invalid sort order. Must be 'asc' or 'desc'");
+  }
+
+  let filteredData = data;
+
+  //  search filter 
+  if (searchTerm) {
+    const lowercaseTerm = searchTerm.toLowerCase();
+    filteredData = filteredData.filter((note) =>
+      note.title.toLowerCase().includes(lowercaseTerm)
+    );
+  }
+
+  //  completion filter
+  if (isCompleted !== null) {
+    filteredData = filteredData.filter((note) => note.completed === isCompleted);
+  }
+
+  //  date sorting
+  filteredData.sort((a, b) => {
+    const dateA = new Date(a.createdAt);
+    const dateB = new Date(b.createdAt);
+    return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+  });
+
+  return filteredData;
+}
+
+// Example usage
+const filteredAndSorted = sortFilterSearch(notesList, {
+  sortOrder: "desc",
+  searchTerm: "javascript",
+  isCompleted: false,
+});
+
+console.log(filteredAndSorted);
