@@ -26,7 +26,7 @@ const notesList = [
 ];
 
 
-// Function to sort data by creation date (ascending or descending)
+// Function to sort data by creation date 
 function sortByDate(data, order) {
   if (order !== "asc" && order !== "desc") {
     throw new Error("Invalid sort order. Must be 'asc' or 'desc'");
@@ -50,7 +50,7 @@ function filterByCompletion(data, isCompleted) {
 }
 
 // Example :
-const sortedAscending = sortByDate(notesList.slice(), "asc"); // Slice to avoid modifying original data
+const sortedAscending = sortByDate(notesList.slice(), "asc"); 
 const filteredCompleted = filterByCompletion(notesList, true);
 const searchForReact = searchByTitle(notesList, "React");
 
